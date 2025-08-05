@@ -24,6 +24,7 @@ P.S: I might make different repo's in zhe future on what I used to ace the afore
 ## 📚 Study Structure
 
 I’m following the official **SAP-C02 exam guide** 
+
 My approach includes:
 
 - Taking detailed notes per domain
