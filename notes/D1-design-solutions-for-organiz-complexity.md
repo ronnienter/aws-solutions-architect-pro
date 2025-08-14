@@ -6,9 +6,11 @@ Infra - Infrastructure
 DR - Disaster Recovery
 ALB
 NLB
+ms - Milliseconds
+PoP - Point of Presence
 
 S1
- ## AWS GLOBAL INFRA
+## AWS GLOBAL INFRA
 
  What Are AWS Regions?
  - a physical location around the world where AWS clusters data centers.
@@ -135,6 +137,7 @@ A multi-AZ architecture protects against:
 
 
 
+
 ## How the hell do AZs Communicate Using Low-Latency Links
 
 # 1. Network Architecture Between AZs
@@ -199,6 +202,7 @@ c. Distributed Computing
 Frameworks like "MapReduce" break big tasks into smaller parts and run them in parallel across multiple AZs. This speeds up processing and uses AWS’s fast inter-AZ network to stay efficient and reliable.
 
 
+
 # 4. Network Security and Isolation
 
 - Despite high-speed links between AZs, each maintains an "independent security perimeter."
@@ -212,7 +216,7 @@ The design also ensures "tenant isolation" i.e one customer’s traffic never im
 
 
 
-# Best Practices for Multi-AZ Workload Deployment
+## Best Practices for Multi-AZ Workload Deployment
 
 a. Fundamental Design Principles
 
@@ -281,12 +285,128 @@ Watch for:
 
     Utilization bottlenecks that could block failover
 
-- 
+
+- Automated Recovery
+Configure Auto Scaling to spin up instances in healthy AZs when failures happen.
+Regularly test failover & recovery to verify real-world effectiveness.
+
+
+- Capacity Planning
+Run below 100% capacity — keep headroom for emergencies. Always
+Ensures surviving AZs can absorb traffic/load during failures.
+
+
+
 
 e. Testing and Validation
 
+- Chaos Engineering – Simulate AZ failures to expose weaknesses in failover, monitoring, or capacity.
+- Disaster Recovery Drills – Regularly test systems, teams, and communication; refine based on results.
+- Performance Testing – Validate recovery time, user experience, and compliance with SLAs/RTOs under AZ outage.
 
-f. 
+
+
+
+## Understand the Role of Edge Locations in AWS CDN Services
+
+
+1. AWS Edge Locations - AWS CDN
+
+- Purpose – Low-latency content delivery by caching data close to users. 
+N/B: Unlike Regions and AZs, edge locations specialize in content caching and delivery.
+- Scope – 
+    400+ sites in 90+ cities, 
+    45+ countries; 
+    placement based on traffic, user density, connectivity.
+- Function – Serve cached content locally instead of pulling from origin, improving speed and UX.
+
+
+2. Integration with Amazon CloudFront
+
+- CloudFront Distribution Architecture
+CloudFront uses edge locations to route user requests via the lowest-latency path. 
+
+
+- Intelligent Request Routing
+CloudFront auto routes requests based on 
+    network latency, 
+    edge health, 
+    load, and cache availability for fast, reliable performance.
+
+- Origin Shield Integration
+
+mid-tier cache between edge and origin servers improves cache hit ratios and reduces origin load
+ideal for high-traffic or capacity-limited systems.
+
+
+
+3. Content Caching Mechanisms
+
+- Static Content:
+Caches static assets (images, scripts, CSS) at edge locations for long periods,
+reducing origin traffic and speeding page loads.
+
+- Dynamic Acceleration:
+Even for non-cacheable content, edge locations speed delivery via AWS’s private network backbone, persistent connections, and netwotk route optimization.
+
+- Compression & Optimization:
+Performs 
+    gzip compression,   
+    image tuning, and 
+    protocol tweaks at the edge to cut bandwidth and improve delivery times.
+
+
+
+4. Global Performance Benefits
+
+- Latency Reduction:
+With edge locations near end users, latency can drop from 100s of ms to tens, especially for users far from origin infrastructure.s.
+
+- Bandwidth Efficiency: 
+Caching at the edge 
+    lowers bandwidth costs, 
+    eases origin load, and 
+    boosts scalability; 
+
+Many organizations see an 80–90% drop in origin requests with CloudFront.
+
+
+- Improved Reliability
+If origin servers fail, cached content continues to serve from the edge, increasing uptime and resilience
+
+EVEN during backend issues.
+
+
+
+
+5. Edge Location Network Topology
+
+- PoP Architecture – Each edge location is a Point of Presence connected to multiple ISPs for fast, reliable delivery regardless of provider.
+
+- AWS Global Network Integration – Linked to AWS’s private network for 
+    high-speed origin fetches, 
+    seamless AWS service integration (Lambda@Edge, S3), 
+    and optimized transfer paths.
+
+Anycast IP Addressing – Same IP broadcast from multiple edge locations; auto-routes to nearest healthy location, avoiding DNS complexity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
