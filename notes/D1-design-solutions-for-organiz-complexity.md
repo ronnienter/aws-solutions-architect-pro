@@ -8,6 +8,7 @@ ALB
 NLB
 ms - Milliseconds
 PoP - Point of Presence
+DLC - Downloadable Content
 
 S1
 ## AWS GLOBAL INFRA
@@ -518,7 +519,33 @@ Database Query Caching – Stores results of complex or slow-changing queries at
 Session and State Management – Caches session data (e.g., carts, tokens) for faster user interactions.
 
 
-4. 
+4. Gaming and Interactive Applications
+
+Game Asset Delivery – Caches assets (textures, audio, levels) for faster loads.
+
+Real-Time Gaming Infrastructure – Accelerates stats, leaderboards, and interactions.
+
+Mobile Game Content – Delivers updates/DLC via edge for reduced churn.
+
+
+5. Enterprise and B2B Applications
+
+Employee Portal Optimization – Improves internal portal access for distributed teams.
+
+Customer Portal Performance – Faster delivery of customer resources and docs.
+
+Content Management Systems – Caches CMS-managed web content for global branding consistency.
+
+
+6. Implementation Considerations
+
+Cache Strategy Design – Match TTL to content volatility.
+Static assets can be cached longer, while dynamic content may need shorter expiration periods.
+
+Cost-Benefit Analysis – Compare caching costs vs. origin savings.
+For high-traffic workloads, cost savings from reduced origin usage often offset delivery expenses.
+
+Monitoring and Optimization – Track cache hit rates, latency, and origin load to refine performance.
 
 
 
